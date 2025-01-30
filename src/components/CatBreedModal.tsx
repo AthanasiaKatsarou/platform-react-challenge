@@ -42,10 +42,10 @@ const CatBreedModal = () => {
 
   return (
     <Modal show onHide={onClose} centered size="xl">
-      <Modal.Header className="my-4" closeButton>
+      <Modal.Header className="my-1 border-bottom-0" closeButton>
         <h2>{breedId}</h2>
       </Modal.Header>
-      <Row className="tm-mb-90 tm-gallery">
+      <Row className="mx-1">
         {breeds.map((breed) => (
           <Col xl={3} lg={4} md={6} sm={6} key={breed.id} className="col-12 mb-5">
             <Card onClick={() => viewDetails(breed.id)} className="favorite">

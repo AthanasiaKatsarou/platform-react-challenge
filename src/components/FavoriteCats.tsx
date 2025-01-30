@@ -16,7 +16,7 @@ const FavoriteCats = () => {
             <Card className="favorite">
               <Card.Img key={index} src={`https://cdn2.thecatapi.com/images/${id}.jpg`} alt="Cat" />
               <Card.Body>
-                <Button onClick={() => removeFavorite(id)} variant="danger">
+                <Button onClick={() => removeFavorite(id)} variant="custom" className="custom">
                   Remove from favorites
                 </Button>
               </Card.Body>

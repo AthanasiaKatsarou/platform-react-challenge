@@ -47,7 +47,7 @@ const CatDetailModal = () => {
             <p>No breed information available.</p>
           )}
           <div className={"d-flex justify-content-between"}>
-            <Button onClick={onClose} variant="secondary">
+            <Button onClick={onClose} variant="custom" className="custom">
               Back
             </Button>
             <Button
@@ -56,7 +56,8 @@ const CatDetailModal = () => {
                 addFavorite(cat.id);
                 onClose();
               }}
-              variant="secondary"
+              variant="custom"
+              className="custom"
             >
               Add to Favorites
             </Button>
