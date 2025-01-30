@@ -4,24 +4,24 @@ import RandomCats from "./components/RandomCats";
 import CatDetailModal from "./components/CatDetailModal";
 import { FavoritesProvider } from "./util/FavoritesContext";
 import FavoriteCats from "./components/FavoriteCats";
-import CatBreeds from "./components/CatBreeds";
+import CatBreedModal from "./components/CatBreedModal";
+import BreedList from "./components/BreedList";
 
 const App = () => {
   return (
     <FavoritesProvider>
       <Router>
         <Routes>
-          {/* Main Page */}
-          <Route path="/" element={<RandomCats />}>
-            {/* Modal as a Nested Route */}
-            <Route path="cat/:id" element={<CatDetailModal />} />
-          </Route>
-          {/* Cat Breeds View */}
-          <Route path="/breeds" element={<CatBreeds />}>
+          <Route path="/" element={<RandomCats />} />
+
+          <Route path="cat/:id" element={<CatDetailModal />} />
+
+          <Route path="/list" element={<BreedList />} />
+
+          <Route path="/breeds" element={<CatBreedModal />}>
             <Route path=":breedId" element={<CatDetailModal />} />
           </Route>
 
-          {/* Favorite Cats View */}
           <Route path="/favorites" element={<FavoriteCats />} />
         </Routes>
       </Router>

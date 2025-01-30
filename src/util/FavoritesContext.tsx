@@ -1,42 +1,38 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { API_BASE, API_KEY, ImageResponse } from "../components/RandomCats";
 import axios from "axios";
 
 const FavoritesContext = createContext<any>([]);
 
 export const FavoritesProvider = ({ children }) => {
+  const [randomCats, setRandomCats] = useState<ImageResponse[]>([]);
   const [favorites, setFavorites] = useState<ImageResponse[]>([]);
-  console.log("favs", favorites);
+  const [loading, setLoading] = useState(false);
 
-  const getFavorites = async () => {
+  const fetchCats = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(`${API_BASE}/favourites`, {
+      const response = await axios.get(`${API_BASE}/images/search?limit=10&has_breeds=1`, {
         headers: { "x-api-key": API_KEY },
       });
-      setFavorites((prevCats) => [...prevCats, ...response.data]);
+      setRandomCats((prevCats) => [...prevCats, ...response.data]);
     } catch (error) {
       console.error("Error fetching cats with breeds:", error);
     }
+    setLoading(false);
   };
 
-  // const addFavorite = async (id) => {
-  //   if (!favorites.includes(id)) {
-  //     try {
-  //       const response = await axios.post(
-  //         `${API_BASE}/favourites`,
-  //         { image_id: id },
-  //         {
-  //           headers: { "x-api-key": API_KEY, "Content-Type": "application/json" },
-  //         }
-  //       );
-
-  //       console.log("Favorite added:", response.data); // Debugging the response
-  //       setFavorites([...favorites, id]); // Update state only after successful API call
-  //     } catch (error) {
-  //       console.error("Error adding favorite:", error.response ? error.response.data : error.message);
-  //     }
+  // const getFavorites = async () => {
+  //   try {
+  //     const response = await axios.get(`${API_BASE}/favourites`, {
+  //       headers: { "x-api-key": API_KEY },
+  //     });
+  //     setFavorites((prevCats) => [...prevCats, ...response.data]);
+  //   } catch (error) {
+  //     console.error("Error fetching cats with breeds:", error);
   //   }
   // };
+
   const addFavorite = async (id) => {
     if (!favorites.includes(id)) {
       // try {
@@ -87,7 +83,7 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, getFavorites }}>
+    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, randomCats, fetchCats, loading }}>
       {children}
     </FavoritesContext.Provider>
   );

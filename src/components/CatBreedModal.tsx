@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE, API_KEY } from "./RandomCats";
+import NavBar from "./NavBar";
 
-const CatBreeds = () => {
-  const [breeds, setBreeds] = useState([]);
+export type BreedResponse = {
+  id: string;
+  url: string;
+  width: number;
+  height: number;
+};
+
+const CatBreedModal = () => {
+  const [breeds, setBreeds] = useState<BreedResponse[]>([]);
   const { breedId } = useParams();
   const navigate = useNavigate();
   console.log("cat", breedId);
@@ -28,26 +36,26 @@ const CatBreeds = () => {
   const viewDetails = (id) => {
     navigate(`/cat/${id}`);
   };
+  const onClose = () => {
+    navigate(-1);
+  };
 
   return (
-    <Container>
-      <h1 className="my-4">Cat Breeds</h1>
-      <Row xs={1} md={2} lg={4} className="g-4">
+    <Modal show onHide={onClose} centered size="xl">
+      <Modal.Header className="my-4" closeButton>
+        <h2>{breedId}</h2>
+      </Modal.Header>
+      <Row className="tm-mb-90 tm-gallery">
         {breeds.map((breed) => (
-          <Col key={breed.id} className="m-2">
-            <Button variant="link">
-              <Card onClick={() => viewDetails(breed.id)}>
-                <Card.Body>
-                  <img key={breed.id} src={breed.url} alt="Cat" width={320} height={300} />
-                </Card.Body>
-              </Card>
-            </Button>
+          <Col xl={3} lg={4} md={6} sm={6} key={breed.id} className="col-12 mb-5">
+            <Card onClick={() => viewDetails(breed.id)}>
+              <Card.Img key={breed.id} src={breed.url} alt="Cat" />
+            </Card>
           </Col>
         ))}
       </Row>
-      <ListGroup></ListGroup>
-    </Container>
+    </Modal>
   );
 };
 
-export default CatBreeds;
+export default CatBreedModal;

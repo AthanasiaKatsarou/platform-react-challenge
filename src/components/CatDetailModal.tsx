@@ -39,7 +39,7 @@ const CatDetailModal = () => {
           {cat.breeds && cat.breeds.length > 0 ? (
             cat.breeds.map((cat, index) => (
               <div key={index}>
-                <Link to={`/breeds/${cat.id}`}>Breed: {cat.name}</Link>
+                <Link to={"/list"}>Breed: {cat.name}</Link>
                 <p>{cat.description}</p>
               </div>
             ))
@@ -50,11 +50,11 @@ const CatDetailModal = () => {
             <Button onClick={onClose} variant="secondary">
               Back
             </Button>
-
             <Button
               onClick={(e) => {
                 e.stopPropagation();
                 addFavorite(cat.id);
+                onClose();
               }}
               variant="secondary"
             >
