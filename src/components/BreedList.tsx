@@ -5,29 +5,15 @@ import { Link } from "react-router-dom";
 import { API_BASE, API_KEY } from "./RandomCats";
 import NavBar from "./NavBar";
 import { BreedResponse } from "./CatBreedModal";
+import { useFavorites } from "../util/FavoritesContext";
 
-type BreedListResponse = {
+export type BreedListResponse = {
   id: string;
   name: string;
 };
 
 const BreedList = () => {
-  const [breeds, setBreeds] = useState<BreedListResponse[]>([]);
-
-  useEffect(() => {
-    const fetchBreeds = async () => {
-      try {
-        const response = await axios.get(`${API_BASE}/breeds`, {
-          headers: { "x-api-key": API_KEY },
-        });
-        setBreeds(response.data);
-      } catch (error) {
-        console.error("Error fetching breeds:", error);
-      }
-    };
-
-    fetchBreeds();
-  }, []);
+  const { breeds } = useFavorites();
 
   return (
     <Container>

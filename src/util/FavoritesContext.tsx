@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { API_BASE, API_KEY, ImageResponse } from "../components/RandomCats";
 import axios from "axios";
+import { BreedListResponse } from "../components/BreedList";
 
 const FavoritesContext = createContext<any>([]);
 
 export const FavoritesProvider = ({ children }) => {
   const [randomCats, setRandomCats] = useState<ImageResponse[]>([]);
   const [favorites, setFavorites] = useState<ImageResponse[]>([]);
+  const [breeds, setBreeds] = useState<BreedListResponse[]>([]);
   const [loading, setLoading] = useState(false);
 
   const fetchCats = async () => {
@@ -21,6 +23,20 @@ export const FavoritesProvider = ({ children }) => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    const fetchBreeds = async () => {
+      try {
+        const response = await axios.get(`${API_BASE}/breeds`, {
+          headers: { "x-api-key": API_KEY },
+        });
+        setBreeds(response.data);
+      } catch (error) {
+        console.error("Error fetching breeds:", error);
+      }
+    };
+    fetchBreeds();
+  }, []);
 
   // const getFavorites = async () => {
   //   try {
@@ -83,7 +99,9 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, randomCats, fetchCats, loading }}>
+    <FavoritesContext.Provider
+      value={{ favorites, addFavorite, removeFavorite, randomCats, fetchCats, loading, breeds }}
+    >
       {children}
     </FavoritesContext.Provider>
   );
