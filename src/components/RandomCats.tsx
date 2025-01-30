@@ -1,7 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Nav, Navbar, Row, Spinner } from "react-bootstrap";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useFavorites } from "../util/FavoritesContext";
 import NavBar from "./NavBar";
 
@@ -16,7 +15,7 @@ export type ImageResponse = {
   breeds: Array<any>;
 };
 const RandomCats = () => {
-  const { randomCats, fetchCats, addFavorite, loading } = useFavorites();
+  const { randomCats, fetchCats, loading } = useFavorites();
 
   const navigate = useNavigate();
 
@@ -37,26 +36,15 @@ const RandomCats = () => {
       <Row className="tm-mb-90 tm-gallery">
         {randomCats.map((cat, index) => (
           <Col xl={3} lg={4} md={6} sm={6} key={index} className="col-12 mb-5">
-            <Card>
+            <Card className="favorite">
               <Card.Img key={index} src={cat.url} alt="Cat" onClick={() => viewDetails(cat.id)} />
-              <Card.Body>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    addFavorite(cat.id);
-                  }}
-                  variant="secondary"
-                >
-                  Add to Favorites
-                </Button>
-              </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
       <div className="text-center my-4">
-        <Button onClick={fetchCats} disabled={loading} variant="secondary">
-          {loading ? <Spinner animation="border" size="sm" /> : "Load More"}
+        <Button onClick={fetchCats} disabled={loading} className="custom" variant="custom">
+          {loading ? "Loading..." : "Load More"}
         </Button>
       </div>
       <Outlet />

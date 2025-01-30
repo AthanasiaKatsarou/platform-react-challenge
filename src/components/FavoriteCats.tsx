@@ -13,7 +13,7 @@ const FavoriteCats = () => {
       <Row className="tm-mb-90 tm-gallery">
         {favorites.map((id, index) => (
           <Col xl={3} lg={4} md={6} sm={6} key={index} className="col-12 mb-5">
-            <Card>
+            <Card className="favorite">
               <Card.Img key={index} src={`https://cdn2.thecatapi.com/images/${id}.jpg`} alt="Cat" />
               <Card.Body>
                 <Button onClick={() => removeFavorite(id)} variant="danger">

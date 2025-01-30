@@ -4,6 +4,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ede8dc;
 }
 
 html {
@@ -14,4 +15,36 @@ img {
   object-fit: fill;
   width: 15rem;
   height: 15rem;
+}
+
+h1,
+h2 {
+  color: #c1cfa1;
+}
+a {
+  color: #5e686d;
+  text-decoration: none;
+}
+.modal-backdrop {
+  opacity: 0 !important;
+}
+
+.navBar {
+  background-color: #a5b68d;
+  color: #5e686d;
+}
+
+.btn.custom {
+  background-color: #9cb875;
+  color: #ede8dc;
+  border: none;
+}
+
+.favorite {
+  background-color: #e7cccc;
+  border: none;
+}
+
+.breeds {
+  background-color: #e7cccc;
 }

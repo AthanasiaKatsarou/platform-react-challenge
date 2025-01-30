@@ -33,7 +33,7 @@ const CatDetailModal = () => {
 
   return (
     <Modal show onHide={onClose} centered>
-      <Card>
+      <Card className="favorite">
         <Card.Img variant="top" src={cat.url} alt="Cat" />
         <Card.Body>
           {cat.breeds && cat.breeds.length > 0 ? (

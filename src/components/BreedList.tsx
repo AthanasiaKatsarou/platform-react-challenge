@@ -32,10 +32,10 @@ const BreedList = () => {
   return (
     <Container>
       <NavBar />
-      <h1 className="my-4">A list of cat breeds</h1>
+      <h1 className="text-center my-4">A list of cat breeds</h1>
       <ListGroup>
         {breeds.map((breed) => (
-          <ListGroup.Item key={breed.id}>
+          <ListGroup.Item key={breed.id} className="breeds">
             <Link to={`/breeds/${breed.id}`}>{breed.name}</Link>
           </ListGroup.Item>
         ))}
