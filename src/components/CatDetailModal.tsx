@@ -3,13 +3,13 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Card, Button, Modal } from "react-bootstrap";
 import { API_BASE, API_KEY, ImageResponse } from "./RandomCats";
-import { useFavorites } from "../util/FavoritesContext";
+import { useCatLovers } from "../util/CatLoversContext";
 
 const CatDetailModal = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [cat, setCat] = useState<ImageResponse>();
-  const { addFavorite } = useFavorites();
+  const { addFavorite } = useCatLovers();
 
   useEffect(() => {
     const fetchCat = async () => {
@@ -34,7 +34,7 @@ const CatDetailModal = () => {
   return (
     <Modal show onHide={onClose} centered>
       <Card className="favorite">
-        <Card.Img variant="top" src={cat.url} alt="Cat" />
+        <Card.Img variant="top" src={cat.url} alt="Cat" style={{ height: "100%" }} />
         <Card.Body>
           {cat.breeds && cat.breeds.length > 0 ? (
             cat.breeds.map((cat, index) => (
@@ -51,8 +51,7 @@ const CatDetailModal = () => {
               Back
             </Button>
             <Button
-              onClick={(e) => {
-                e.stopPropagation();
+              onClick={() => {
                 addFavorite(cat.id);
                 onClose();
               }}

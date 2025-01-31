@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
-import { useFavorites } from "../util/FavoritesContext";
+import { useCatLovers } from "../util/CatLoversContext";
 import NavBar from "./NavBar";
 
 const FavoriteCats = () => {
-  const { favorites, removeFavorite } = useFavorites();
+  const { favorites, removeFavorite } = useCatLovers();
 
   return (
     <Container>

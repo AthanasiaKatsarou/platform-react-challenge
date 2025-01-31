@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { Container, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { API_BASE, API_KEY } from "./RandomCats";
 import NavBar from "./NavBar";
-import { BreedResponse } from "./CatBreedModal";
-import { useFavorites } from "../util/FavoritesContext";
+import { useCatLovers } from "../util/CatLoversContext";
 
 export type BreedListResponse = {
   id: string;
@@ -13,7 +10,7 @@ export type BreedListResponse = {
 };
 
 const BreedList = () => {
-  const { breeds } = useFavorites();
+  const { breeds } = useCatLovers();
 
   return (
     <Container>

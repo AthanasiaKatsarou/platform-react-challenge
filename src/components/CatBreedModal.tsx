@@ -3,7 +3,6 @@ import axios from "axios";
 import { Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE, API_KEY } from "./RandomCats";
-import NavBar from "./NavBar";
 
 export type BreedResponse = {
   id: string;
@@ -13,24 +12,23 @@ export type BreedResponse = {
 };
 
 const CatBreedModal = () => {
-  const [breeds, setBreeds] = useState<BreedResponse[]>([]);
+  const [cats, setCats] = useState<BreedResponse[]>([]);
   const { breedId } = useParams();
   const navigate = useNavigate();
-  console.log("cat", breedId);
 
   useEffect(() => {
-    const fetchBreeds = async () => {
+    const fetchCatsWithBreed = async () => {
       try {
         const response = await axios.get(`${API_BASE}/images/search?limit=10&breed_ids=${breedId}`, {
           headers: { "x-api-key": API_KEY },
         });
-        setBreeds(response.data);
+        setCats(response.data);
       } catch (error) {
         console.error("Error fetching breeds:", error);
       }
     };
 
-    fetchBreeds();
+    fetchCatsWithBreed();
   }, []);
 
   const viewDetails = (id) => {
@@ -46,11 +44,11 @@ const CatBreedModal = () => {
         <h2>{breedId}</h2>
       </Modal.Header>
       <Row className="mx-1">
-        {breeds.map((breed) => (
-          <Col xl={3} lg={4} md={6} sm={6} key={breed.id} className="col-12 mb-5">
-            <Card onClick={() => viewDetails(breed.id)} className="favorite">
+        {cats.map((cat) => (
+          <Col xl={3} lg={4} md={6} sm={6} key={cat.id} className="col-12 mb-5">
+            <Card onClick={() => viewDetails(cat.id)} className="favorite">
               <div className="gallery">
-                <Card.Img key={breed.id} src={breed.url} alt="Cat" />
+                <Card.Img key={cat.id} src={cat.url} alt="Cat" />
               </div>
             </Card>
           </Col>

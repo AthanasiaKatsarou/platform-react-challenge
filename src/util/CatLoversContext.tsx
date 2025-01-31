@@ -3,9 +3,9 @@ import { API_BASE, API_KEY, ImageResponse } from "../components/RandomCats";
 import axios from "axios";
 import { BreedListResponse } from "../components/BreedList";
 
-const FavoritesContext = createContext<any>([]);
+const CatLoversContext = createContext<any>([]);
 
-export const FavoritesProvider = ({ children }) => {
+export const CatLoversProvider = ({ children }) => {
   const [randomCats, setRandomCats] = useState<ImageResponse[]>([]);
   const [favorites, setFavorites] = useState<ImageResponse[]>([]);
   const [breeds, setBreeds] = useState<BreedListResponse[]>([]);
@@ -99,13 +99,12 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   return (
-    <FavoritesContext.Provider
+    <CatLoversContext.Provider
       value={{ favorites, addFavorite, removeFavorite, randomCats, fetchCats, loading, breeds }}
     >
       {children}
-    </FavoritesContext.Provider>
+    </CatLoversContext.Provider>
   );
 };
 
-// Custom hook to use the FavoritesContext
-export const useFavorites = () => useContext(FavoritesContext);
+export const useCatLovers = () => useContext(CatLoversContext);

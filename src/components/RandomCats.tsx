@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useFavorites } from "../util/FavoritesContext";
+import { useCatLovers } from "../util/CatLoversContext";
 import NavBar from "./NavBar";
 
-export const API_BASE = "https://api.thecatapi.com/v1";
-export const API_KEY = "live_2QgyB0VwThl4SBBEoAejBmbl6J4hzmW58yrQbSc6FsvNUNUeVwgLWQr75M2EOXFvY";
+export const API_BASE = import.meta.env.VITE_CAT_API_BASE;
+export const API_KEY = import.meta.env.VITE_CAT_API_KEY;
 
 export type ImageResponse = {
   id: string;
@@ -15,7 +15,7 @@ export type ImageResponse = {
   breeds: Array<any>;
 };
 const RandomCats = () => {
-  const { randomCats, fetchCats, loading } = useFavorites();
+  const { randomCats, fetchCats, loading } = useCatLovers();
 
   const navigate = useNavigate();
 
