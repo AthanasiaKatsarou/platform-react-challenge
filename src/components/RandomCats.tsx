@@ -37,7 +37,9 @@ const RandomCats = () => {
         {randomCats.map((cat, index) => (
           <Col xl={3} lg={4} md={6} sm={6} key={index} className="col-12 mb-5">
             <Card className="favorite">
-              <Card.Img key={index} src={cat.url} alt="Cat" onClick={() => viewDetails(cat.id)} />
+              <div className="gallery">
+                <Card.Img key={index} src={cat.url} alt="Cat" onClick={() => viewDetails(cat.id)} />
+              </div>
             </Card>
           </Col>
         ))}
